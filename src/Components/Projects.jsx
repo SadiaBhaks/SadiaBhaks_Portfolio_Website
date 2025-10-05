@@ -3,17 +3,18 @@ import { FaGithub } from "react-icons/fa";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 const projects = [
-  
+  {
+    title:"E-commerce Website with Rasa Chatbot",
+    image:"/ecommerce.png",
+    link:"https://github.com/SadiaBhaks/E-Commerce-Website-With-Rasa-AI-Chatbot.git"
+
+  },
   {
     title: "Disaster Resource Coordination",
     image: "/DisasterResource.png", 
     link: "https://github.com/SadiaBhaks/Disaster_resource_coordinator.git",
   },
-  {
-    title: "Snake Game",
-    image: "/SnakeGame.png",
-    link: "https://github.com/SadiaBhaks/Snake-game-with-java.git",
-  },
+  
   {
     title: "Tailwind React Demo",
     image: "/tailwind_react.jpg",
@@ -138,14 +139,16 @@ export default function ProjectsCarousel() {
         </div>
         
       )}
-      <div className="flex justify-center items-center">
-        <button
-      onClick={handleClick}
-      className="px-6 py-2 mt-20 bg-yellow-400 text-black text-2xl  rounded-lg shadow-md hover:bg-gray-400 hover:text-white transition"
-    >
-      Visit My GitHub
-    </button>
-      </div>
+     <div className="flex justify-center items-center gap-6 mt-20 md:mt-5">
+  <h1 className="text-white underline">For more projects:</h1>
+  <button
+    onClick={handleClick}
+    className="px-6 py-2 bg-yellow-400 text-black text-2xl rounded-lg shadow-md hover:bg-gray-400 hover:text-white transition"
+  >
+    Visit My GitHub
+  </button>
+</div>
+
     </section>
   );
 }

@@ -10,7 +10,7 @@ export default function Navbar(){
 
 return(
 <>
-<nav className="bg-gradient-to-br from-[#0f0f0f] to-[#1a1a2e]  shadow-md  fixed top-0 z-50 w-full ">
+<nav className="bg-gradient-to-br from-[#0f0f0f] to-[#1a1a2e]  shadow-md  relative top-0  w-full ">
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div className="flex justify-between h-16 items-center h-30">
 <div className="text-yellow-400 font-bold text-4xl"
