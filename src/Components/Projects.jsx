@@ -10,15 +10,15 @@ const projects = [
 
   },
   {
-    title: "Disaster Resource Coordination",
-    image: "/DisasterResource.png", 
-    link: "https://github.com/SadiaBhaks/Disaster_resource_coordinator.git",
+    title: "AI Knowledge Based Platform",
+    image: "/knowledgeBased.jpg", 
+    link: "https://github.com/SadiaBhaks/AI-knowledge-based-platform.git",
   },
   
   {
-    title: "Tailwind React Demo",
-    image: "/tailwind_react.jpg",
-    link: "https://github.com/SadiaBhaks/Tailwind-React-project.git",
+    title: "Anemia Prediction App",
+    image: "/AI.png",
+    link: "https://github.com/SadiaBhaks/Anemia_prediction_app.git",
   },
 ];
 
