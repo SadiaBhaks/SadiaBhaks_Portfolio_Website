@@ -148,7 +148,10 @@ export default function ProjectsCarousel() {
     Visit My GitHub
   </button>
 </div>
-
+  <div>
+    
+  </div>
     </section>
+    
   );
 }

@@ -14,7 +14,7 @@ return(
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div className="flex justify-between h-16 items-center h-30">
 <div className="text-yellow-400 font-bold text-4xl"
-  style={{ textShadow: "0 0 0 #FFD700, 0 0 10px #FFD700, 0 0 50px #FFA500" }}>Sadia Bhaks</div>
+  style={{ textShadow: "0 0 0 #FFD700, 0 0 5px #FFD700, 0 0 50px #FFA500" }}>Sadia Bhaks</div>
 
  <div className="hidden md:flex space-x-8  font-medium ">
             
@@ -27,6 +27,10 @@ return(
             <a href="#Projects" className="text-yellow-400 hover:text-gray-400 transition-colors duration-300 transition-transform duration-300 transition-transform duration-300 hover:-translate-y-2  p-4 rounded">
               Projects
             </a>
+             <a href="#education" className="text-yellow-400 hover:text-gray-400 transition-colors duration-300 transition-transform duration-300 transition-transform duration-300 hover:-translate-y-2  p-4 rounded">
+              Education
+            </a>
+
             <a href="#Contact" className="text-yellow-400 hover:text-gray-400 transition-colors duration-300 transition-transform duration-300 transition-transform duration-300 hover:-translate-y-2  p-4 rounded">
               Contact
             </a>
@@ -95,6 +99,14 @@ return(
             >
               projects
             </a>
+             <a
+              href="#education"
+              onClick={() => setIsOpen(false)}
+              className="block px-3 py-2 rounded-md text-base font-medium text-yellow-400 hover:text-purple-600"
+            >
+              Education
+            </a>
+
             <a
               href="#Contact"
               onClick={() => setIsOpen(false)}
