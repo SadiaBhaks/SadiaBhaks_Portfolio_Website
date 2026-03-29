@@ -1,157 +1,120 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { FaGithub } from "react-icons/fa";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import {  ExternalLink } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  {
-    title:"E-commerce Website with Rasa Chatbot",
-    image:"/ecommerce.png",
-    link:"https://github.com/SadiaBhaks/E-Commerce-Website-With-Rasa-AI-Chatbot.git"
-
+{
+    title: "E-commerce Website with Rasa Chatbot", 
+    video: "/E-commerce.mp4",
+    link: "https://github.com/SadiaBhaks/E-Commerce-Website-With-Rasa-AI-Chatbot.git"
   },
   {
     title: "AI Knowledge Based Platform",
-    image: "/knowledgeBased.jpg", 
+    video: "/AIknowledgebased.mp4",
     link: "https://github.com/SadiaBhaks/AI-knowledge-based-platform.git",
   },
-  
   {
     title: "Anemia Prediction App",
-    image: "/AI.png",
+    video: "/AiAnemia.mp4",
     link: "https://github.com/SadiaBhaks/Anemia_prediction_app.git",
-  },
+ },
 ];
 
 export default function ProjectsCarousel() {
-  const [current, setCurrent] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const container = useRef(null);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  useGSAP(() => {
+    const cards = gsap.utils.toArray(".project-card");
     
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top top",
+        end: `+=${projects.length * 150}%`, // Longer scroll for smoother pacing
+        pin: true,
+        scrub: 0.1, // Near-instant response to scroll
+        anticipatePin: 1,
+      }
+    });
 
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
-  };
+    cards.forEach((card, index) => {
+      if (index === cards.length - 1) return;
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
-  };
-  const handleClick = () => {
-    window.open("https://github.com/SadiaBhaks", "_blank");
-  };
+      tl.to(card, {
+        rotateX: -110,    // Flips back and away
+        y: -100,          // Lifts slightly for 3D depth
+        opacity: 0,
+        scale: 0.9,
+        duration: 1,
+        ease: "power4.inOut" // Snappy, modern easing
+      }, index); 
+    });
+  }, { scope: container });
 
   return (
-    <section id="Projects" className="bg-black py-10 md:py-20 w-full min-h-screen">
-      <div className="px-4">
-        <h2 className="text-3xl md:text-4xl font-bold py-5 mb-8 md:mb-12 text-center text-white">
+    <section id="Projects"
+      ref={container} 
+      className=" w-full min-h-screen flex flex-col items-center justify-center overflow-hidden"
+    >
+      <div className="text-center mb-10">
+        <h2 className="text-4xl md:text-5xl font-bold text-white">
           My <span className="text-yellow-400">Projects</span>
         </h2>
+        <p className="text-gray-400 mt-2">Scroll to explore</p>
       </div>
-      
-      <div className="relative flex items-center justify-center w-full h-auto md:h-[600px] bg-black overflow-hidden px-4 md:px-0">
-        {/* Left Arrow */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 h-full w-12 md:w-24 flex items-center justify-center bg-gradient-to-r from-black/60 to-transparent text-yellow-400 hover:text-white transition z-30"
-          aria-label="Previous project"
-        >
-          <FiArrowLeft size={isMobile ? 40 : 100} />
-        </button>
 
-        {/* Project Cards */}
-        <div className="flex gap-4 md:gap-10 items-center transition-transform duration-500 w-full justify-center">
-          {projects.map((project, index) => {
-            // For mobile, only show current project without side previews
-            if (isMobile && index !== current) return null;
-            
-            let position = "scale-75 opacity-40 blur-sm";
-            if (!isMobile) {
-              if (index === current)
-                position = "scale-100 opacity-100 blur-0 z-20";
-              if (index === (current + 1) % projects.length)
-                position = "scale-90 opacity-70 blur-md z-10";
-              if (index === (current - 1 + projects.length) % projects.length)
-                position = "scale-90 opacity-70 blur-md z-10";
-            } else {
-              position = "scale-100 opacity-100 blur-0 z-20"; // Mobile always shows current clearly
-            }
-
-            return (
-              <div
-                key={index}
-                className={`transition-all duration-700 transform ${position} bg-gray-900/70 backdrop-blur-md border border-yellow-400 rounded-xl shadow-2xl p-3 md:p-4 w-full max-w-[90vw] md:w-[420px] `}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="rounded-lg mb-3 w-full h-auto max-h-[200px] md:max-h-none object-contain"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/400x200/333/fff?text=Image+Not+Found';
-                  }}
-                />
-                <h2 className="text-yellow-400 text-xl font-bold mb-2 text-center">
-                  {project.title}
-                </h2>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center text-white hover:text-yellow-400"
-                >
-                  <FaGithub className="mr-2" /> GitHub
-                </a>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right Arrow */}
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 h-full w-12 md:w-24 flex items-center justify-center bg-gradient-to-l from-black/60 to-transparent text-yellow-400 hover:text-white transition z-30"
-          aria-label="Next project"
-        >
-          <FiArrowRight size={isMobile ? 40 : 100} />
-        </button>
-      </div>
-      
-      {/* Mobile indicators */}
-      {isMobile && (
-        <div className="flex justify-center mt-6 space-x-2">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`w-3 h-3 rounded-full ${
-                index === current ? 'bg-yellow-400' : 'bg-gray-500'
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
-        
-      )}
-     <div className="flex justify-center items-center gap-6 mt-20 md:mt-5">
-  <h1 className="text-white underline">For more projects:</h1>
-  <button
-    onClick={handleClick}
-    className="px-6 py-2 bg-yellow-400 text-black text-2xl rounded-lg shadow-md hover:bg-gray-400 hover:text-white transition"
-  >
-    Visit My GitHub
-  </button>
+      {/* Increased Width Container */}
+      <div 
+        className="relative w-[95vw] max-w-[1100px] h-[500px] md:h-[650px]" 
+        style={{ perspective: "2000px" }} // Deeper perspective for wider cards
+      >
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className="project-card absolute inset-0 bg-gray-900/90 backdrop-blur-lg border border-yellow-400/30 rounded-3xl p-6 md:p-10 flex flex-col md:flex-row gap-8 items-center justify-between shadow-[0_0_50px_rgba(0,0,0,0.5)] origin-bottom"
+            style={{ zIndex: projects.length - index }}
+          >
+            <div className="w-full md:w-4/5 h-[400px] md:h-full overflow-hidden rounded-2xl border border-white/10 relative group">
+  <video
+    src={project.video} // Make sure to add 'video' paths to your projects array
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+  />
+  {/* Optional Overlay to make the video feel more integrated */}
+  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
 </div>
-  <div>
-    
-  </div>
+            
+            {/* Text Section */}
+            <div className="w-full md:w-2/5 flex flex-col justify-center items-start text-left">
+              <h3 className="text-yellow-400 text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                {project.title}
+              </h3>
+              <p className="text-gray-400 mb-8 text-lg">
+                Interactive full-stack application built with modern web technologies.
+              </p>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-8 py-3 bg-yellow-400 text-black font-bold rounded-full hover:bg-white transition-all duration-300"
+              >
+                <FaGithub size={24} /> View GitHub
+              </a>
+               <a href={project.link} target="_blank" className="text-accent/30 hover:text-primary">
+                    <ExternalLink size={12} />
+                  </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
-    
   );
 }

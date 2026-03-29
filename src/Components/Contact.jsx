@@ -30,10 +30,10 @@ export default function Contact() {
   return (
     <section
       id="Contact"
-      className="bg-black text-white py-16 px-6 md:px-20"
+      className=" text-white py-16 px-6 md:px-20"
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-        {/* Left - Contact Info */}
+       
         <div>
           <h2 className="text-3xl font-bold mb-4">
             Get In <span className="text-yellow-400">Touch</span>

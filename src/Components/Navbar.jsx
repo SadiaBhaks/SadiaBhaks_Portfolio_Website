@@ -14,7 +14,7 @@ return(
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div className="flex justify-between h-16 items-center h-30">
 <div className="text-yellow-400 font-bold text-4xl"
-  style={{ textShadow: "0 0 0 #FFD700, 0 0 5px #FFD700, 0 0 50px #FFA500" }}>Sadia Bhaks</div>
+  style={{ textShadow: "0 0 0 #FFD700, 0 0 1px #FFD700, 0 0 50px #FFA500" }}>Sadia Bhaks</div>
 
  <div className="hidden md:flex space-x-8  font-medium ">
             
